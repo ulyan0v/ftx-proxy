@@ -1,12 +1,16 @@
 import fetch from 'node-fetch';
 import {createSign, isNotEmptyObject} from '../../utils.js';
 
-export const ftxQuery = async (url, {apiSecret, apikey, sub, method, body}) => {
+export const ftxQuery = async (url, {reqHeader, method, body}) => {
+  const apikey = reqHeader['api-key'];
+  const apiSecret = reqHeader['api-secret'];
+  const sub = reqHeader['sub'];
+
   const timestamp = Date.now().toString().slice(0, -3) + '000';
   const bodyString = isNotEmptyObject(body) ? JSON.stringify(body) : undefined;
   const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
   const signature = createSign(apiSecret, payload);
-  const header = {
+  const headers = {
     'Host': 'ftx.com',
     'Content-Type': 'application/json',
     'FTX-KEY': apikey,
@@ -14,19 +18,11 @@ export const ftxQuery = async (url, {apiSecret, apikey, sub, method, body}) => {
     'FTX-SIGN': signature,
   };
 
-  if (sub) header['FTX-SUBACCOUNT'] = encodeURI(sub);
-
-  console.log(`
-    ${url}
-    apikey: ${apikey}
-    apiSecret: ${apiSecret}
-    payload: ${payload}
-  `);
-  console.log(header);
+  if (sub) headers['FTX-SUBACCOUNT'] = encodeURI(sub);
 
   const res = await fetch(`https://ftx.com${url}`, {
     method,
-    header,
+    headers,
     body: bodyString,
   });
 

@@ -1,31 +1,31 @@
 import {ftxQuery} from './utils.js';
 
-export const getBalance = ({apiSecret, apikey, sub}) => {
+export const getBalance = ({reqHeader}) => {
   return ftxQuery('/api/wallet/balances', {
-    method: 'GET', apiSecret, apikey, sub
+    method: 'GET', reqHeader
   });
 }
 
-export const createOrder = ({apiSecret, apikey, sub, body}) => {
+export const createOrder = ({reqHeader, body}) => {
   return ftxQuery('/api/orders', {
-    method: 'POST', body, apiSecret, apikey, sub
+    method: 'POST', body, reqHeader
   });
 }
 
-export const openOrders = ({apiSecret, apikey, sub, market}) => {
+export const openOrders = ({reqHeader, market}) => {
   return ftxQuery(`/api/orders?market=${market}`, {
-    method: 'GET', apiSecret, apikey, sub
+    method: 'GET', reqHeader
   });
 }
 
-export const ordersHistory = ({apiSecret, apikey, sub, market}) => {
+export const ordersHistory = ({reqHeader, market}) => {
   return ftxQuery(`/api/orders/history?market=${market}`, {
-    method: 'GET', apiSecret, apikey, sub
+    method: 'GET', reqHeader
   });
 }
 
-export const cancelOrder = ({apiSecret, apikey, sub, id}) => {
+export const cancelOrder = ({reqHeader, id}) => {
   return ftxQuery(`/api/orders/${id}`, {
-    method: 'DELETE', apiSecret, apikey, sub
+    method: 'DELETE', reqHeader
   });
 }
