@@ -15,7 +15,9 @@ export const ftxQuery = async (url, {headers, method, body}) => {
     'FTX-SIGN': signature,
   };
 
-  if (sub) header['FTX-SUBACCOUNT'] = sub;
+  if (sub) header['FTX-SUBACCOUNT'] = encodeURI(sub);
+
+  console.log(url, header);
 
   const res = await fetch(`https://ftx.com${url}`, {
     method,
