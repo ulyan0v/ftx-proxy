@@ -4,7 +4,8 @@ import {createSign, isNotEmptyObject} from '../../utils.js';
 export const ftxQuery = async (url, {apiSecret, apikey, sub, method, body}) => {
   const timestamp = Date.now();
   const bodyString = isNotEmptyObject(body) ? JSON.stringify(body) : undefined;
-  const signature = createSign(apiSecret, `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`);
+  const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
+  const signature = createSign(apiSecret, payload);
   const header = {
     'FTX-KEY': apikey,
     'FTX-TS': timestamp.toString(),
@@ -13,7 +14,13 @@ export const ftxQuery = async (url, {apiSecret, apikey, sub, method, body}) => {
 
   if (sub) header['FTX-SUBACCOUNT'] = encodeURI(sub);
 
-  console.log(url, header);
+  console.log(`
+    ${url}
+    apikey: ${apikey}
+    apiSecret: ${apiSecret}
+    payload: ${payload}
+  `);
+  console.log(header);
 
   const res = await fetch(`https://ftx.com${url}`, {
     method,
