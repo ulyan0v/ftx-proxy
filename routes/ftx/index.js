@@ -7,51 +7,36 @@ const router = Router({
 });
 
 router.all('/balance', async (ctx) => {
-  const apikey = ctx.request.header['api-key'];
-  const apiSecret = ctx.request.header['api-secret'];
-
   ctx.body = await getBalance({
-    apiSecret, apikey
+    headers: ctx.request.header
   });
 });
 
 router.all('/createorder', async (ctx) => {
-  const apikey = ctx.request.header['api-key'];
-  const apiSecret = ctx.request.header['api-secret'];
-
   ctx.body = await createOrder({
     body: isNotEmptyObject(ctx.request.body) ? ctx.request.body : ctx.request.query,
-    apiSecret, apikey
+    headers: ctx.request.header
   });
 });
 
 router.all('/cancelorder', async (ctx) => {
-  const apikey = ctx.request.header['api-key'];
-  const apiSecret = ctx.request.header['api-secret'];
-
   ctx.body = await cancelOrder({
     id: ctx.request.query?.order_id || ctx.request.body?.order_id,
-    apiSecret, apikey
+    headers: ctx.request.header
   });
 });
 
 router.all('/ordershistory', async (ctx) => {
-  const apikey = ctx.request.header['api-key'];
-  const apiSecret = ctx.request.header['api-secret'];
-
   ctx.body = await ordersHistory({
     market: ctx.request.query?.market || ctx.request.body?.market,
-    apiSecret, apikey
+    headers: ctx.request.header
   });
 });
 
 router.all('/openorders', async (ctx) => {
-  const apikey = ctx.request.header['api-key'];
-  const apiSecret = ctx.request.header['api-secret'];
-
   ctx.body = await openOrders({
     market: ctx.request.query?.market || ctx.request.body?.market,
-    apiSecret, apikey
+    headers: ctx.request.header
   });
 });
 

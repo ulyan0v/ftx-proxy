@@ -15,8 +15,6 @@ app.use(koaBody({
   urlencoded: true
 }));
 
-
-
 app.use(ftxRouter.routes());
 app.use(ftxRouter.allowedMethods());
 
