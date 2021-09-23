@@ -7,6 +7,8 @@ export const ftxQuery = async (url, {apiSecret, apikey, sub, method, body}) => {
   const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
   const signature = createSign(apiSecret, payload);
   const header = {
+    'Host': 'ftx.com',
+    'Content-Type': 'application/json',
     'FTX-KEY': apikey,
     'FTX-TS': timestamp,
     'FTX-SIGN': signature,
