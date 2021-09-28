@@ -18,10 +18,10 @@ export const startBrowser = async () => {
     options.addExtensions(fs.readFileSync(extentions[0], 'base64'));
     options.addArguments("start-maximized");
     options.addArguments("disable-infobars");
-    //options.addArguments("--disable-extensions");
     options.addArguments("--disable-gpu");
     options.addArguments("--disable-dev-shm-usage");
     options.addArguments("--no-sandbox");
+    options.addArguments("--remote-debugging-port=4444");
   
     chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 
