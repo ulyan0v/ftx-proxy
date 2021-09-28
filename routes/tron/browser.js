@@ -5,12 +5,12 @@ import {By, Builder, Browser} from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import chromedriver from 'chromedriver';
 import {getExtentions} from './utils.js';
-//import Xvfb from 'xvfb';
+import Xvfb from 'xvfb';
 
-//const xvfb = new Xvfb();
+const xvfb = new Xvfb();
 
 export const startBrowser = async () => {
-  //xvfb.startSync();
+  xvfb.startSync();
 
   const options = new chrome.Options();
     const extentions = await getExtentions();
@@ -34,6 +34,6 @@ export const startBrowser = async () => {
     const text = await testEl.getText()
 
     driver.quit();
-    //xvfb.stopSync();
+    xvfb.stopSync();
     return text;
 }
