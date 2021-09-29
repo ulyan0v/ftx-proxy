@@ -1,6 +1,6 @@
 import Router from '@koa/router';
 import {getBalance, createOrder, cancelOrder, ordersHistory, openOrders} from './queries.js';
-import {isNotEmptyObject} from '../../utils.js';
+import {isNotEmptyObject} from '../../utils/other.js';
 
 const router = Router({
   prefix: '/ftx'

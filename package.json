@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@koa/router": "^10.1.1",
+    "chromedriver": "^94.0.0",
     "dotenv": "^10.0.0",
     "js-sha256": "^0.9.0",
     "koa": "^2.13.1",
@@ -22,7 +23,7 @@
     "node-fetch": "^3.0.0",
     "selenium-extensions": "^1.0.0",
     "selenium-webdriver": "^4.0.0-rc-1",
-    "chromedriver": "^94.0.0",
+    "uuid": "^8.3.2",
     "xvfb": "^0.4.0"
   },
   "type": "module"

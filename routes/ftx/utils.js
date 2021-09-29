@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
-import {createSign, isNotEmptyObject} from '../../utils.js';
+import {createSha256Sign} from '../../utils/crypto.js';
+import {isNotEmptyObject} from '../../utils/other.js';
 
 export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const apikey = reqHeader['api-key'];
@@ -9,7 +10,7 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const timestamp = Date.now();
   const bodyString = isNotEmptyObject(body) ? JSON.stringify(body) : undefined;
   const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
-  const signature = createSign(apiSecret, payload);
+  const signature = createSha256Sign(apiSecret, payload);
   const headers = {
     // 'Host': 'ftx.com',
     // 'Content-Type': 'application/json',
