@@ -7,12 +7,9 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const apiSecret = reqHeader['api-secret'];
   const sub = reqHeader['sub'];
 
-  const bodyString = isNotEmptyObject(body)
-    ? JSON.stringify(body).replace('/', '\\/')
-    : undefined;
-
   const timestamp = Date.now();
-  const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
+  const bodyString = isNotEmptyObject(body) ? JSON.stringify(body) : undefined;
+  const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString.replace('/', '\\/') || ''}`;
   const signature = createSha256Sign(apiSecret, payload);
   const headers = {
     // 'Host': 'ftx.com',
@@ -27,7 +24,7 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const res = await fetch(`https://ftx.com${url}`, {
     method,
     headers,
-    body,
+    body: bodyString,
   });
 
   return await res.json();
