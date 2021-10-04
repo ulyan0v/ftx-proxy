@@ -7,8 +7,11 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const apiSecret = reqHeader['api-secret'];
   const sub = reqHeader['sub'];
 
+  const bodyString = isNotEmptyObject(body)
+    ? JSON.stringify(body).replace('/', '\\/')
+    : undefined;
+
   const timestamp = Date.now();
-  const bodyString = isNotEmptyObject(body) ? JSON.stringify(body) : undefined;
   const payload = `${timestamp}${method.toUpperCase()}${url}${bodyString || ''}`;
   const signature = createSha256Sign(apiSecret, payload);
   const headers = {
