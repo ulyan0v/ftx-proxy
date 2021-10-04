@@ -8,7 +8,7 @@ const API_KEY = '9Qk5KVzSYm-gTGuPk_cKKneq44xCC6D4Lw8mZhBz';
 const API_SECRET = 'p9b8zNHeN2HcMse8qwFmidTliwHdr--iypWCyxcM';
 
 const method = 'GET';
-const path = '/api/wallet/all_balances';
+const path = `/api/orders/history?market=BTC/USDT`;
 
 const ts = Date.now();
 const payload = `${ts}${method.toUpperCase()}${path}`;
