@@ -13,17 +13,19 @@ app.use(koaBody({
   urlencoded: true
 }));
 
+app.use(async ({request}, next) => {
+  if (request.body) Object.entries(request.body).forEach(([key, value]) => {
+    if (value === '') request.body[key] = null;
+  });
+
+  await next();
+});
+
 app.use(ftxRouter.routes());
 app.use(tronRouter.routes());
 
 app.use(ftxRouter.allowedMethods());
 app.use(tronRouter.allowedMethods());
-
-// app.use(async (ctx, next) => {
-//   await next();
-//   console.log('request: ' + JSON.stringify(ctx.request, null, 2));
-//   console.log('response: ' + JSON.stringify(ctx.response, null, 2));
-// });
 
 app.listen(port, () => {
   console.log('Server has been started');
