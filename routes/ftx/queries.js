@@ -7,7 +7,6 @@ export const getBalance = ({reqHeader}) => {
 }
 
 export const createOrder = ({reqHeader, body}) => {
-  console.log(body);
   return ftxQuery('/api/orders', {
     method: 'POST', body, reqHeader
   });

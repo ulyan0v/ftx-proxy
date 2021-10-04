@@ -13,12 +13,12 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const signature = createSha256Sign(apiSecret, payload);
   const headers = {
     // 'Host': 'ftx.com',
-    // 'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
     'FTX-KEY': apikey,
     'FTX-TS': timestamp.toString(),
     'FTX-SIGN': signature,
   };
-
+  console.log(payload);
   if (sub) headers['FTX-SUBACCOUNT'] = encodeURI(sub);
 
   const res = await fetch(`https://ftx.com${url}`, {
