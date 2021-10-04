@@ -6,10 +6,7 @@ import tronRouter from './routes/tron/index.js';
 
 dotenv.config();
 const app = new Koa();
-const port = parseInt(process.env.PORT);
-
-if (!port)
-  throw new Error('Port not found. Check .env file');
+const port = parseInt(process.env.PORT) || 8080;
 
 app.use(koaBody({
   multipart: true,

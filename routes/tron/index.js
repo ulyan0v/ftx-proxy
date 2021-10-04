@@ -1,7 +1,6 @@
 import Router from '@koa/router';
 import {createTronWallet} from './utils.js';
 import {logInFile} from '../../utils/logger.js';
-import {retry} from '../../utils/other.js';
 
 const router = Router({
   prefix: '/tron'
@@ -9,7 +8,7 @@ const router = Router({
 
 router.all('/wallet', async (ctx) => {
   try {
-    const data = await retry(createTronWallet, 3);
+    const data = await createTronWallet();
     const currentTime = new Date().toLocaleTimeString();
     const logData = JSON.stringify(data);
 
