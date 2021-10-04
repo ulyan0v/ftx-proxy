@@ -27,7 +27,7 @@ export const ftxQuery = async (url, {reqHeader, method, body}) => {
   const res = await fetch(`https://ftx.com${url}`, {
     method,
     headers,
-    body: bodyString,
+    body,
   });
 
   return await res.json();
