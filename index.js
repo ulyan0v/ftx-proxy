@@ -16,7 +16,7 @@ app.use(koaBody({
 app.use(async ({request}, next) => {
   if (request.body) Object.entries(request.body).forEach(([key, value]) => {
     if (value === '') request.body[key] = null;
-    if (!isNaN(+value)) request.body[key] = +value;
+    else if (!isNaN(+value)) request.body[key] = +value;
   });
 
   await next();
